@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/chofer}">Choferes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/camion}">Camiones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/index}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/camion_list}">Asignar Camiones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/asignarcaminionesachofer}">Detener Uso</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/camion}">Camiones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<div class="container-fluid text-center">
+    <div class="m-2"> <h2>  Asignar Choferes Disponibles</h2></div>
+    <div th:if="${message}" class="alert alert-success text-center" >
+        [[${message}]]
+
+    </div>
+
+    <div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Salario</th>
+                <th>Sexo</th>
+
+                <th>Accion</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="chofer: ${listChoferes}">
+
+                <tr>
+                    <td>[[${chofer.id}]]</td>
+                    <td>[[${chofer.nombre}]]</td>
+                    <td>[[${chofer.apellido}]]</td>
+                    <td>[[${chofer.edad}]]</td>
+                    <td>[[${chofer.salario}]]</td>
+                    <td>[[${chofer.sexo}]]</td>
+
+
+
+                    <td>
+
+                        <a class="btn btn-primary m-2" th:href="@{'/chofer_list/asignar_chofer/' +${chofer.id}}">Asignar</a>
+
+
+                    </td>
+                </tr>
+
+            </th:block>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="m-2">
+        <a class="btn btn-primary btn-sm mb3" th:href="@{/camion_list}">Atras</a>
+    </div>
+
+</div>
+
+</body>
+</html>

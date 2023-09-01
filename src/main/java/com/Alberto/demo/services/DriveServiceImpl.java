@@ -55,8 +55,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
     @Override
     public DriverDTO convertToDTO(Driver driver)  {
             modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-            DriverDTO driverDTO = new DriverDTO();
-            driverDTO = modelMapper.map(driver, DriverDTO.class);
+            DriverDTO driverDTO = modelMapper.map(driver, DriverDTO.class);
             return driverDTO;
 
     }
@@ -64,8 +63,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
     @Override
     public Driver convertDTOtoEntity(DriverDTO driverDTO) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-        Driver driver = new Driver();
-        driver = modelMapper.map(driverDTO,Driver.class);
+        Driver driver = modelMapper.map(driverDTO,Driver.class);
         return driver;
     }
 

@@ -23,7 +23,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
     @Override
     public List<Driver> search(String filtro) throws Exception {
         try{
-            List<Driver> drivers = driverRepository.findByNombreContainingOrApellidoContaining(filtro,filtro);
+            List<Driver> drivers = driverRepository.findByNameContainingOrLastnameContaining(filtro,filtro);
             return drivers;
 
         }catch (Exception e){
@@ -34,7 +34,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
     @Override
     public Page<Driver> search(String filtro, Pageable pageable) throws Exception {
         try {
-            Page<Driver> drivers = driverRepository.findByNombreContainingOrApellidoContaining(filtro,filtro,pageable);
+            Page<Driver> drivers = driverRepository.findByNameContainingOrLastnameContaining(filtro,filtro,pageable);
             return drivers;
 
         } catch (Exception e) {

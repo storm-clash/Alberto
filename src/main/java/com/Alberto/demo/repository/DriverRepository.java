@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface DriverRepository extends BaseRepository<Driver,Long> {
 
-    List<Driver> findByNombreContainingOrApellidoContaining(String nombre, String apellido);
+    List<Driver> findByNameContainingOrLastnameContaining(String name, String lastname);
     //------------------------------PAGINACION-------------------------------------
-    Page<Driver> findByNombreContainingOrApellidoContaining(String nombre, String apellido, Pageable pageable);
+    Page<Driver> findByNameContainingOrLastnameContaining(String name, String lastname, Pageable pageable);
 }

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 public class TruckController extends BaseControllerImpl<Truck, TruckServiceImpl>{
 
     @GetMapping("/search")
-    public ResponseEntity<?> search(@RequestParam String filtro){
+    public ResponseEntity<?> search(@RequestParam String filtro,@RequestParam Double filtro2){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.search(filtro));
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.search(filtro,filtro2));
 
         }catch (Exception e){
 
@@ -26,9 +26,9 @@ public class TruckController extends BaseControllerImpl<Truck, TruckServiceImpl>
     }
 
     @GetMapping("/searchPaged")
-    public ResponseEntity<?> search(@RequestParam String filtro, Pageable pageable){
+    public ResponseEntity<?> search(@RequestParam String filtro, @RequestParam Double filtro2,Pageable pageable){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.search(filtro,pageable));
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.search(filtro,filtro2,pageable));
 
         }catch (Exception e){
 

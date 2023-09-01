@@ -21,9 +21,9 @@ public class TruckServiceImpl extends BaseServiceImpl<Truck,Long> implements Tru
     }
 
     @Override
-    public List<Truck> search(String filtro) throws Exception {
+    public List<Truck> search(String filtro, double filtro2) throws Exception {
         try{
-            List<Truck> trucks = truckRepository.findByMatriculaContainingOrFuelContaining(filtro,filtro);
+            List<Truck> trucks = truckRepository.findByMatriculaContainingOrKilometrajeContaining(filtro,filtro2);
             return trucks;
 
         }catch (Exception e){
@@ -32,9 +32,9 @@ public class TruckServiceImpl extends BaseServiceImpl<Truck,Long> implements Tru
     }
 
     @Override
-    public Page<Truck> search(String filtro, Pageable pageable) throws Exception {
+    public Page<Truck> search(String filtro, double filtro2, Pageable pageable) throws Exception {
         try {
-            Page<Truck> trucks = truckRepository.findByMatriculaContainingOrFuelContaining(filtro,filtro,pageable);
+            Page<Truck> trucks = truckRepository.findByMatriculaContainingOrKilometrajeContaining(filtro,filtro2,pageable);
             return trucks;
 
         } catch (Exception e) {

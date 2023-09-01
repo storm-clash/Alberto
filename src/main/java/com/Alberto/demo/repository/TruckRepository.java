@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface TruckRepository extends BaseRepository<Truck,Long> {
 
-    List<Truck> findByMatriculaContainingOrFuelContaining(String matricula, String fuel);
+    List<Truck> findByMatriculaContainingOrKilometrajeContaining(String matricula, double kilometraje);
     //------------------------------PAGINACION-------------------------------------
-    Page<Truck> findByMatriculaContainingOrFuelContaining(String matricula, String fuel, Pageable pageable);
+    Page<Truck> findByMatriculaContainingOrKilometrajeContaining(String matricula, double kilometraje, Pageable pageable);
 }

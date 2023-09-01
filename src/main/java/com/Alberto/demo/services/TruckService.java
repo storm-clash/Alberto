@@ -19,8 +19,14 @@ public interface TruckService extends BaseService<Truck,Long>{
     //--------------------------PAGINACION-----------------------
     Page<Truck> search(String filtro,double filtro2 ,Pageable pageable) throws Exception;
 
-    public TruckDTO convertToDTO(Truck truck)throws Exception;
+    public TruckDTO convertToDTO(Truck truck);
 
-    public Truck convertDTOtoEntity(TruckDTO truckDTO) throws Exception;
+    public Truck convertDTOtoEntity(TruckDTO truckDTO);
+
+    public TruckDTO update(Long id, TruckDTO entity) throws Exception;
+
+    public TruckDTO save(TruckDTO entity) throws Exception;
+
+
 
 }

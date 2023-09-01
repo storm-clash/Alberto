@@ -55,7 +55,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
     @Override
     public DriverDTO convertToDTO(Driver driver)  {
             modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-            DriverDTO driverDTO = modelMapper.map(driver, DriverDTO.class);
+            DriverDTO driverDTO = modelMapper.map(driver,DriverDTO.class);
             return driverDTO;
 
     }
@@ -68,6 +68,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
     }
 
     public List<DriverDTO> findAll() throws Exception {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         try{
 
             List<Driver> entities=driverRepository.findAll();

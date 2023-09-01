@@ -1,7 +1,10 @@
 package com.Alberto.demo.controllers;
 
+import com.Alberto.demo.DTOs.DriverDTO;
+import com.Alberto.demo.DTOs.TruckDTO;
 import com.Alberto.demo.entities.Truck;
 import com.Alberto.demo.services.TruckServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,43 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "api/v1/truck")
 
 public class TruckController extends BaseControllerImpl<Truck, TruckServiceImpl>{
+
+    @Autowired
+    private TruckServiceImpl truckService;
+
+    @GetMapping("")
+    public ResponseEntity<?> getAll(){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(truckService.findAll());
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":Error, Por favor intente mas tarde.\"}");
+        }
+
+    }
+
+    @PostMapping("")
+    public ResponseEntity<?> save(@RequestBody TruckDTO entity){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(truckService.save(entity));
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":Error, Por favor intente mas tarde.\"}");
+        }
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id,@RequestBody TruckDTO entity){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(truckService.update(id,entity));
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":Error, Por favor intente mas tarde.\"}");
+        }
+
+    }
 
     @GetMapping("/search")
     public ResponseEntity<?> search(@RequestParam String filtro,@RequestParam Double filtro2){

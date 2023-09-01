@@ -7,12 +7,16 @@ import com.Alberto.demo.entities.Truck;
 import com.Alberto.demo.repository.BaseRepository;
 import com.Alberto.demo.repository.TruckRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class TruckServiceImpl extends BaseServiceImpl<Truck,Long> implements TruckService{
 
@@ -50,16 +54,63 @@ public class TruckServiceImpl extends BaseServiceImpl<Truck,Long> implements Tru
     }
 
     @Override
-    public TruckDTO convertToDTO(Truck truck) throws Exception {
-        TruckDTO truckDTO = new TruckDTO();
-        truckDTO = modelMapper.map(truck,TruckDTO.class);
+    public TruckDTO convertToDTO(Truck truck) {
+        TruckDTO truckDTO = modelMapper.map(truck,TruckDTO.class);
         return truckDTO;
     }
 
     @Override
-    public Truck convertDTOtoEntity(TruckDTO truckDTO) throws Exception {
-        Truck truck = new Truck();
-        truck = modelMapper.map(truckDTO,Truck.class);
+    public Truck convertDTOtoEntity(TruckDTO truckDTO){
+        Truck truck = modelMapper.map(truckDTO,Truck.class);
         return truck;
+    }
+    public List<TruckDTO> findAll() throws Exception {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        try{
+
+            List<Truck> entities=truckRepository.findAll();
+            return entities.stream().map(this::convertToDTO).collect(Collectors.toList());
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+    public TruckDTO save(TruckDTO entity) throws Exception {
+        try{
+
+            Truck truck = convertDTOtoEntity(entity);
+
+
+            if(truck.getKilometraje()<=0){
+                throw new IllegalArgumentException("mileage must be over 0");
+            }  else if (truck.getCapacidad()<0) {
+                throw new IllegalArgumentException("capacity should be greater than 0");
+            }
+            Truck truckCreated = truckRepository.save(truck);
+            return convertToDTO(truckCreated);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public TruckDTO update(Long id, TruckDTO entity) throws Exception {
+        try{
+            //Optional<E> se emplea cuando existe la posibilidad de q no encuentre el objeto
+            Optional<Truck> entityOptional = truckRepository.findById(id);
+            Truck truck = convertDTOtoEntity(entity);
+
+
+            if(truck.getKilometraje()<entityOptional.get().getKilometraje()){
+                throw new IllegalArgumentException("mileage must be higher than current");
+            } else if (!truck.getType().equals(entityOptional.get().getType())) {
+                throw new IllegalArgumentException("Fuel should remain the same, can't update");
+
+            }
+
+            return convertToDTO(truckRepository.save(truck));
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 }

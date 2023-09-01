@@ -1,6 +1,7 @@
 package com.Alberto.demo.controllers;
 import com.Alberto.demo.entities.Base;
 import com.Alberto.demo.services.BaseServiceImpl;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -12,18 +13,11 @@ public abstract class BaseControllerImpl <E extends Base, S extends BaseServiceI
     @Autowired
     protected S servicio;
 
+
+
+
     //ResponseEntity->Brinda los status de respuesta en formato JSON
-    @GetMapping("")
-    public ResponseEntity<?> getAll(){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.findAll());
 
-        }catch (Exception e){
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":Error, Por favor intente mas tarde.\"}");
-        }
-
-    }
     @GetMapping("/paged")//Paginacion
     public ResponseEntity<?> getAll(Pageable pageable){
         try{
@@ -46,27 +40,7 @@ public abstract class BaseControllerImpl <E extends Base, S extends BaseServiceI
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":Error, Por favor intente mas tarde.\"}");
         }
     }
-    @PostMapping("")
-    public ResponseEntity<?> save(@RequestBody E entity){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.save(entity));
 
-        }catch (Exception e){
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":Error, Por favor intente mas tarde.\"}");
-        }
-    }
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id,@RequestBody E entity){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.update(id,entity));
-
-        }catch (Exception e){
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":Error, Por favor intente mas tarde.\"}");
-        }
-
-    }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         try{

@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TruckDTO {
+public class TruckDTO  {
     private Long id;
     private String matricula;
     private double capacidad;

@@ -1,8 +1,12 @@
 package com.Alberto.demo.services;
 
+import com.Alberto.demo.DTOs.DriverDTO;
+import com.Alberto.demo.DTOs.TruckDTO;
+import com.Alberto.demo.entities.Driver;
 import com.Alberto.demo.entities.Truck;
 import com.Alberto.demo.repository.BaseRepository;
 import com.Alberto.demo.repository.TruckRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +18,9 @@ public class TruckServiceImpl extends BaseServiceImpl<Truck,Long> implements Tru
 
     @Autowired
     private TruckRepository truckRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
 
     public TruckServiceImpl(BaseRepository<Truck, Long> baseRepository) {
@@ -40,5 +47,19 @@ public class TruckServiceImpl extends BaseServiceImpl<Truck,Long> implements Tru
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
+    }
+
+    @Override
+    public TruckDTO convertToDTO(Truck truck) throws Exception {
+        TruckDTO truckDTO = new TruckDTO();
+        truckDTO = modelMapper.map(truck,TruckDTO.class);
+        return truckDTO;
+    }
+
+    @Override
+    public Truck convertDTOtoEntity(TruckDTO truckDTO) throws Exception {
+        Truck truck = new Truck();
+        truck = modelMapper.map(truckDTO,Truck.class);
+        return truck;
     }
 }

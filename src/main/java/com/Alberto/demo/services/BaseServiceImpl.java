@@ -1,7 +1,13 @@
 package com.Alberto.demo.services;
 
+import com.Alberto.demo.DTOs.DriverDTO;
+import com.Alberto.demo.DTOs.TruckDTO;
+import com.Alberto.demo.entities.Driver;
+import com.Alberto.demo.entities.Truck;
 import com.Alberto.demo.repository.BaseRepository;
 import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.Alberto.demo.entities.Base;
@@ -13,10 +19,14 @@ public abstract class BaseServiceImpl<E extends Base,ID extends Serializable> im
 
     protected BaseRepository<E,ID> baseRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
+
     public BaseServiceImpl(BaseRepository<E, ID> baseRepository) {
         this.baseRepository = baseRepository;
     }
-    @Override
+   /* @Override
     @Transactional
 
     public List<E> findAll() throws Exception {
@@ -27,7 +37,7 @@ public abstract class BaseServiceImpl<E extends Base,ID extends Serializable> im
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
-    }
+    }*/
     @Override
     @Transactional
     public Page<E> findAll(Pageable pageable) throws Exception{
@@ -55,7 +65,7 @@ public abstract class BaseServiceImpl<E extends Base,ID extends Serializable> im
         }
     }
 
-    @Override
+   /* @Override
     @Transactional
     public E save(E entity) throws Exception {
         try{
@@ -78,7 +88,7 @@ public abstract class BaseServiceImpl<E extends Base,ID extends Serializable> im
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
-    }
+    }*/
 
     @Override
     @Transactional
@@ -94,4 +104,9 @@ public abstract class BaseServiceImpl<E extends Base,ID extends Serializable> im
             throw new Exception(e.getMessage());
         }
     }
+
+
+
+
+
 }

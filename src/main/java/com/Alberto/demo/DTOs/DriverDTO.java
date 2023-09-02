@@ -12,9 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DriverDTO{
     private Long id;
-    private String nombre;
-    private String apellido;
-    private int edad;
-    private double salario;
+    private String name;
+    private String lastname;
+    private int age;
+    private double wage;
     private Sex type;
 }

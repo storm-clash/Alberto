@@ -2,18 +2,23 @@ package com.Alberto.demo.services;
 
 import com.Alberto.demo.DTOs.DriverDTO;
 import com.Alberto.demo.entities.Driver;
+import com.Alberto.demo.entities.Fuel;
+import com.Alberto.demo.entities.Truck;
+import com.Alberto.demo.entities.Trucks_Driver;
 import com.Alberto.demo.repository.BaseRepository;
 import com.Alberto.demo.repository.DriverRepository;
+import com.Alberto.demo.repository.TruckRepository;
+import com.Alberto.demo.repository.Truck_DriverRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -90,6 +95,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
                 throw new IllegalArgumentException("Wage should be greater than the 21% of 12000");
             }
             Driver driverCreated = driverRepository.save(driver);
+
             return convertToDTO(driverCreated);
         }catch (Exception e){
             throw new Exception(e.getMessage());
@@ -109,7 +115,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
             } else if (!driver.getType().equals(entityOptional.get().getType())) {
                 throw new IllegalArgumentException("Sex should remain the same, can't update");
                 
-            } else if (driver.getWage()>=(12000*0.21)) {
+            } else if (driver.getWage()<=(12000*0.21)) {
                 throw new IllegalArgumentException("Wage should be greater than the 21% of 12000");
             }
 

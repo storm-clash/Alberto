@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class DriverController extends BaseControllerImpl<Driver, DriveServiceImpl>{
 
     @Autowired
-    DriveServiceImpl driveService;
+    private DriveServiceImpl driveService;
+
     @GetMapping("")
     public ResponseEntity<?> getAll(){
         try{

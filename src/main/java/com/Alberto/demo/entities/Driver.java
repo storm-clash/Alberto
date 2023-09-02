@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -32,13 +34,8 @@ public class Driver extends Base {
     @Column(name="sex")
     private Sex type;
 
-    @ManyToMany
-    @JoinTable(
-            name = "truck_driver",
-            joinColumns = @JoinColumn(name = "driver_id"),
-            inverseJoinColumns = @JoinColumn(name = "truck_id"))
-    Set<Truck> trucks;
 
-    @OneToMany(mappedBy = "driver")
-    Set<Trucks_Driver> trucksDrivers;
+
+    @OneToMany(mappedBy = "driver",cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    private Collection<Trucks_Driver> trucksDrivers = new ArrayList<>();
 }

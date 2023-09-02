@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -31,9 +33,8 @@ public class Truck extends Base{
     private Fuel type;
     private boolean utilizado;
 
-    @ManyToMany(mappedBy = "trucks")
-    Set<Driver> drivers;
 
-    @OneToMany(mappedBy = "truck")
-    Set<Trucks_Driver> trucksDrivers;
+
+    @OneToMany(mappedBy = "truck",cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    private Collection<Trucks_Driver> trucksDrivers = new ArrayList<>();
 }

@@ -74,5 +74,17 @@ public class DriverController extends BaseControllerImpl<Driver, DriveServiceImp
         }
     }
 
+    @PostMapping("/assign_Driver/{driver_id}")
+    public ResponseEntity<?> assign_Driver(@PathVariable("driver_id") Long driver_id,@RequestParam("truck_id") Long truck_id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(driveService.assign(driver_id,truck_id));
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":Error, Por favor intente mas tarde.\"}");
+        }
+
+    }
+
 
 }

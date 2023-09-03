@@ -15,4 +15,5 @@ import java.time.LocalDate;
 public interface BaseRepository<E extends Base,ID extends Serializable> extends JpaRepository<E,ID> {
 
 
+
 }

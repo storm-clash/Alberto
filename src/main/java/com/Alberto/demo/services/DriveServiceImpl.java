@@ -1,6 +1,7 @@
 package com.Alberto.demo.services;
 
 import com.Alberto.demo.DTOs.DriverDTO;
+import com.Alberto.demo.DTOs.Truck_DriverDTO;
 import com.Alberto.demo.entities.Driver;
 import com.Alberto.demo.entities.Fuel;
 import com.Alberto.demo.entities.Truck;
@@ -30,6 +31,13 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private TruckRepository truckRepository;
+
+    @Autowired
+    private Truck_DriverRepository truckDriverRepository;
+
 
     public DriveServiceImpl(BaseRepository<Driver, Long> baseRepository) {
         super(baseRepository);
@@ -66,6 +74,13 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
     }
 
     @Override
+    public Truck_DriverDTO convertToDTO(Trucks_Driver trucks_driver) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        Truck_DriverDTO truck_driverDTO = modelMapper.map(trucks_driver,Truck_DriverDTO.class);
+        return truck_driverDTO;
+    }
+
+    @Override
     public Driver convertDTOtoEntity(DriverDTO driverDTO) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         Driver driver = modelMapper.map(driverDTO,Driver.class);
@@ -83,6 +98,30 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
             throw new Exception(e.getMessage());
         }
     }
+
+    @Override
+    public Truck_DriverDTO assign(Long driver_id, Long truck_id) throws Exception {
+       Optional<Driver> driver = driverRepository.findById(driver_id);
+       Optional<Truck> truck = truckRepository.findById(truck_id);
+         if(driver.isEmpty()){
+             throw new IllegalArgumentException("There is no such driver");
+         } else if (truck.get().isUtilizado()) {
+             throw new IllegalArgumentException("The Truck is current in use");
+         }
+
+
+        Trucks_Driver trucksDriver = new Trucks_Driver(driver.get(),truck.get(),LocalDate.now());
+
+         Truck_DriverDTO truck_driverDTO = new Truck_DriverDTO(driver.get().getName(),truck.get().getMatricula(),LocalDate.now());
+
+         truck.get().setUtilizado(true);
+
+         truckDriverRepository.save(trucksDriver);
+
+        return truck_driverDTO;
+
+    }
+
     public DriverDTO save(DriverDTO entity) throws Exception {
         try{
 
@@ -107,6 +146,10 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
         try{
             //Optional<E> se emplea cuando existe la posibilidad de q no encuentre el objeto
             Optional<Driver> entityOptional = driverRepository.findById(id);
+
+            if(entityOptional.isEmpty()){
+                throw new IllegalArgumentException("There is no such truck");
+            }
             Driver driver = convertDTOtoEntity(entity);
 
 

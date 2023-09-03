@@ -43,4 +43,24 @@ public class Driver extends Base {
     public void addTrucksDriver(Trucks_Driver trucks_driver){
         this.trucksDrivers.add(trucks_driver);
     }
+
+    public Driver(String name, String lastname, int age, double wage, @Nonnull Sex type) {
+        this.name = name;
+        this.lastname = lastname;
+        this.age = age;
+        this.wage = wage;
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Driver{" +
+                "name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", age=" + age +
+                ", wage=" + wage +
+                ", type=" + type +
+                ", trucksDrivers=" + trucksDrivers +
+                '}';
+    }
 }

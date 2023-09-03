@@ -41,4 +41,10 @@ public class Trucks_Driver {
         this.fecha_inicio = fecha_inicio;
         this.fecha_termino = fecha_termino;
     }
+
+    public Trucks_Driver(Driver driver, Truck truck, LocalDate fecha_inicio) {
+        this.driver = driver;
+        this.truck = truck;
+        this.fecha_inicio = fecha_inicio;
+    }
 }

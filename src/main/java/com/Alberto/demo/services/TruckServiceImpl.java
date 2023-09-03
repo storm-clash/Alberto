@@ -4,8 +4,10 @@ import com.Alberto.demo.DTOs.DriverDTO;
 import com.Alberto.demo.DTOs.TruckDTO;
 import com.Alberto.demo.entities.Driver;
 import com.Alberto.demo.entities.Truck;
+import com.Alberto.demo.exceptions.CantDeleteException;
 import com.Alberto.demo.repository.BaseRepository;
 import com.Alberto.demo.repository.TruckRepository;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,6 +94,29 @@ public class TruckServiceImpl extends BaseServiceImpl<Truck,Long> implements Tru
             throw new Exception(e.getMessage());
         }
     }
+    @Transactional
+    @Override
+    public boolean delete(long truck_id) throws Exception {
+        try{
+            Optional<Truck> truck = baseRepository.findById(truck_id);
+            if(truck.isEmpty()){
+                throw new IllegalArgumentException("There is no truck with that ID");
+
+            } else if (truck.get().isUtilizado()) {
+
+                throw new CantDeleteException("Cannot remove this truck, it is in use");
+
+            } else {
+
+                baseRepository.deleteById(truck_id);
+                return true;
+
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
 
     @Override
     public TruckDTO update(Long id, TruckDTO entity) throws Exception {
@@ -113,4 +138,6 @@ public class TruckServiceImpl extends BaseServiceImpl<Truck,Long> implements Tru
             throw new Exception(e.getMessage());
         }
     }
+
+
 }

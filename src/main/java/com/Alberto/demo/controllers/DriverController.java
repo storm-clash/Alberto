@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "api/v1/driver")
+@EnableTransactionManagement
 
 public class DriverController extends BaseControllerImpl<Driver, DriveServiceImpl>{
 
@@ -90,6 +94,18 @@ public class DriverController extends BaseControllerImpl<Driver, DriveServiceImp
     public ResponseEntity<?> terminate_Use(@PathVariable("driver_id") Long driver_id){
         try{
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(driveService.terminate_Use(driver_id));
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":Error, Por favor intente mas tarde.\"}");
+        }
+
+    }
+
+    @GetMapping("/verify_use/{driver_id}")
+    public ResponseEntity<?> verify_UseOfATruck(@PathVariable("driver_id") Long driver_id, @RequestParam Date filtro){
+        try{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(driveService.verify_Use(driver_id,filtro));
 
         }catch (Exception e){
 

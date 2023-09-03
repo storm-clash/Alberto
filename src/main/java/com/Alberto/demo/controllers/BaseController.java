@@ -20,6 +20,6 @@ public interface BaseController<E extends Base,ID extends Serializable> {
 
 
 
-    public ResponseEntity<?> delete(@PathVariable ID id);
+
 }
 

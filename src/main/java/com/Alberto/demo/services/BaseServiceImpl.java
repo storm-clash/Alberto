@@ -90,20 +90,7 @@ public abstract class BaseServiceImpl<E extends Base,ID extends Serializable> im
         }
     }*/
 
-    @Override
-    @Transactional
-    public boolean delete(ID id) throws Exception {
-        try{
-            if(baseRepository.existsById(id)){
-                baseRepository.deleteById(id);
-                return true;
-            }else {
-                throw new Exception();
-            }
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
-    }
+
 
 
 

@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Date;
 import java.util.List;
 
 public interface DriveService extends BaseService<Driver,Long>{
@@ -32,4 +33,6 @@ public interface DriveService extends BaseService<Driver,Long>{
     public Truck_DriverDTO assign(Long driver_id, Long truck_id)throws Exception;
 
     public boolean terminate_Use(Long driver_id) throws Exception;
+
+    public boolean verify_Use(Long driver_id, Date filtro) throws Exception;
 }

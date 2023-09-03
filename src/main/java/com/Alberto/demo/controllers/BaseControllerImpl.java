@@ -41,15 +41,6 @@ public abstract class BaseControllerImpl <E extends Base, S extends BaseServiceI
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        try{
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(servicio.delete(id));
 
-        }catch (Exception e){
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":Error, Por favor intente mas tarde.\"}");
-        }
-    }
 
 }

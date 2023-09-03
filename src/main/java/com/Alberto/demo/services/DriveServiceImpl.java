@@ -10,6 +10,7 @@ import com.Alberto.demo.repository.BaseRepository;
 import com.Alberto.demo.repository.DriverRepository;
 import com.Alberto.demo.repository.TruckRepository;
 import com.Alberto.demo.repository.Truck_DriverRepository;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -98,7 +100,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
             throw new Exception(e.getMessage());
         }
     }
-
+    @Transactional
     @Override
     public Truck_DriverDTO assign(Long driver_id, Long truck_id) throws Exception {
        Optional<Driver> driver = driverRepository.findById(driver_id);
@@ -121,7 +123,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
         return truck_driverDTO;
 
     }
-
+    @Transactional
     @Override
     public boolean terminate_Use(Long driver_id) throws Exception {
         try {
@@ -133,6 +135,8 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
                 if (list.getFecha_termino() == null) {
                     list.setFecha_termino(LocalDate.now());
                     truckDriverRepository.save(list);
+                    Optional<Truck> truck = truckRepository.findById(list.getTruck().getId());
+                    truck.get().setUtilizado(false);
                     return true;
 
                 }
@@ -145,6 +149,17 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
 
     }
 
+    @Override
+    public boolean verify_Use(Long driver_id, Date filtro) throws Exception {
+        List<Trucks_Driver> trucks_driver = truckDriverRepository.findDriver(driver_id,filtro);
+        if(trucks_driver.isEmpty()){
+            throw new IllegalArgumentException("There is no such driver using a truck that day");
+        } else{
+            return true;
+        }
+
+    }
+    @Transactional
     public DriverDTO save(DriverDTO entity) throws Exception {
         try{
 
@@ -163,7 +178,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
             throw new Exception(e.getMessage());
         }
     }
-
+    @Transactional
     @Override
     public DriverDTO update(Long id, DriverDTO entity) throws Exception {
         try{

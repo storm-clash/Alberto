@@ -27,6 +27,8 @@ public interface TruckService extends BaseService<Truck,Long>{
 
     public TruckDTO save(TruckDTO entity) throws Exception;
 
+    public boolean delete (long truck_id) throws Exception;
+
 
 
 }

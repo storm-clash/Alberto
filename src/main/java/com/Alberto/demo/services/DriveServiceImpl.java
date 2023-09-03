@@ -122,6 +122,29 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
 
     }
 
+    @Override
+    public boolean terminate_Use(Long driver_id) throws Exception {
+        try {
+            List<Trucks_Driver> trucks_driver = truckDriverRepository.findByDriverId(driver_id);
+            if (trucks_driver.isEmpty()) {
+                throw new IllegalArgumentException("There is no such driver");
+            }
+            for (Trucks_Driver list : trucks_driver) {
+                if (list.getFecha_termino() == null) {
+                    list.setFecha_termino(LocalDate.now());
+                    truckDriverRepository.save(list);
+                    return true;
+
+                }
+            }
+            throw new IllegalArgumentException("The driver has no trucks assigned at this time");
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+
+    }
+
     public DriverDTO save(DriverDTO entity) throws Exception {
         try{
 

@@ -30,4 +30,6 @@ public interface DriveService extends BaseService<Driver,Long>{
     public List<DriverDTO> findAll()throws Exception;
 
     public Truck_DriverDTO assign(Long driver_id, Long truck_id)throws Exception;
+
+    public boolean terminate_Use(Long driver_id) throws Exception;
 }

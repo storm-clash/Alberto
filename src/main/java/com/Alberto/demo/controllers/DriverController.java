@@ -86,5 +86,17 @@ public class DriverController extends BaseControllerImpl<Driver, DriveServiceImp
 
     }
 
+    @GetMapping("/terminate_Use/{driver_id}")
+    public ResponseEntity<?> terminate_Use(@PathVariable("driver_id") Long driver_id){
+        try{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(driveService.terminate_Use(driver_id));
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":Error, Por favor intente mas tarde.\"}");
+        }
+
+    }
+
 
 }

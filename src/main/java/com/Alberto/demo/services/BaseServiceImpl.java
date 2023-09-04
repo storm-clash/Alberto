@@ -23,8 +23,7 @@ public abstract class BaseServiceImpl<E extends Base,ID extends Serializable> im
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private DriveServiceImpl driveService;
+
 
 
     public BaseServiceImpl(BaseRepository<E, ID> baseRepository) {

@@ -35,7 +35,7 @@ public class Truck extends Base{
 
 
 
-    @OneToMany(mappedBy = "truck",cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @OneToMany(mappedBy = "truck",cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.DETACH})
     private Collection<Trucks_Driver> trucksDrivers = new ArrayList<>();
 
     public Truck(String matricula, double capacidad, int ruedas, double kilometraje, Fuel type, boolean utilizado) {

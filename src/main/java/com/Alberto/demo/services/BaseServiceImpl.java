@@ -7,6 +7,7 @@ import com.Alberto.demo.entities.Truck;
 import com.Alberto.demo.repository.BaseRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,9 @@ public abstract class BaseServiceImpl<E extends Base,ID extends Serializable> im
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private DriveServiceImpl driveService;
 
 
     public BaseServiceImpl(BaseRepository<E, ID> baseRepository) {

@@ -47,10 +47,11 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
     }
 
     @Override
-    public List<Driver> search(String filtro) throws Exception {
+    public List<DriverDTO> search(String filtro) throws Exception {
         try{
             List<Driver> drivers = driverRepository.findByNameContainingOrLastnameContaining(filtro,filtro);
-            return drivers;
+
+            return drivers.stream().map(this::convertToDTO).collect(Collectors.toList());
 
         }catch (Exception e){
             throw new Exception(e.getMessage());
@@ -101,6 +102,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
             throw new Exception(e.getMessage());
         }
     }
+
     @Transactional
     @Override
     public Truck_DriverDTO assign(Long driver_id, Long truck_id) throws Exception {

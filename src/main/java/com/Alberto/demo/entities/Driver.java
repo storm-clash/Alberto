@@ -36,7 +36,7 @@ public class Driver extends Base {
 
 
 
-    @OneToMany(mappedBy = "driver",cascade ={CascadeType.MERGE,CascadeType.REFRESH})
+    @OneToMany(mappedBy = "driver",cascade ={CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.DETACH})
     private Collection<Trucks_Driver> trucksDrivers = new ArrayList<>();
 
 

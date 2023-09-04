@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface DriveService extends BaseService<Driver,Long>{
 
-    List<Driver> search(String filtro) throws Exception;
+    List<DriverDTO> search(String filtro) throws Exception;
 
     //--------------------------PAGINACION-----------------------
     Page<Driver> search(String filtro, Pageable pageable) throws Exception;
@@ -37,4 +37,6 @@ public interface DriveService extends BaseService<Driver,Long>{
     public boolean verify_Use(Long driver_id, Date filtro) throws Exception;
 
     public boolean delete (long driver_id) throws Exception;
+
+
 }

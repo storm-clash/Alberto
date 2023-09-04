@@ -14,13 +14,17 @@ public class Truck_DriverDTO {
 
 
     private String name;
-    private String plate;
-    private LocalDate begin;
-    private LocalDate end;
+    private String matricula;
+    private LocalDate fecha_inicio;
+    private LocalDate fecha_termino;
 
-    public Truck_DriverDTO(String name, String plate, LocalDate begin) {
+    public Truck_DriverDTO(String name, String matricula, LocalDate fecha_inicio) {
         this.name = name;
-        this.plate = plate;
-        this.begin = begin;
+        this.matricula = matricula;
+        this.fecha_inicio = fecha_inicio;
     }
+
+
+
+
 }

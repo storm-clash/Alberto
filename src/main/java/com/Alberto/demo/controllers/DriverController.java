@@ -79,7 +79,7 @@ public class DriverController extends BaseControllerImpl<Driver, DriveServiceImp
     }
 
     @PostMapping("/assign_Driver/{driver_id}")
-    public ResponseEntity<?> assign_Driver(@PathVariable("driver_id") Long driver_id,@RequestParam("truck_id") Long truck_id){
+    public ResponseEntity<?> assign_Driver(@PathVariable Long driver_id,@RequestParam Long truck_id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(driveService.assign(driver_id,truck_id));
 
@@ -91,7 +91,7 @@ public class DriverController extends BaseControllerImpl<Driver, DriveServiceImp
     }
 
     @GetMapping("/terminate_Use/{driver_id}")
-    public ResponseEntity<?> terminate_Use(@PathVariable("driver_id") Long driver_id){
+    public ResponseEntity<?> terminate_Use(@PathVariable Long driver_id){
         try{
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(driveService.terminate_Use(driver_id));
 
@@ -103,7 +103,7 @@ public class DriverController extends BaseControllerImpl<Driver, DriveServiceImp
     }
 
     @GetMapping("/verify_use/{driver_id}")
-    public ResponseEntity<?> verify_UseOfATruck(@PathVariable("driver_id") Long driver_id, @RequestParam Date filtro){
+    public ResponseEntity<?> verify_UseOfATruck(@PathVariable Long driver_id, @RequestParam Date filtro){
         try{
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(driveService.verify_Use(driver_id,filtro));
 

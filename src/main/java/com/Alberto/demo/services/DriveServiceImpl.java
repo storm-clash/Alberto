@@ -104,24 +104,29 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
     @Transactional
     @Override
     public Truck_DriverDTO assign(Long driver_id, Long truck_id) throws Exception {
-       Optional<Driver> driver = driverRepository.findById(driver_id);
-       Optional<Truck> truck = truckRepository.findById(truck_id);
-         if(driver.isEmpty()){
-             throw new IllegalArgumentException("There is no such driver");
-         } else if (truck.get().isUtilizado()) {
-             throw new IllegalArgumentException("The Truck is current in use");
-         }
+
+        try {
+            Optional<Driver> driver = driverRepository.findById(driver_id);
+            Optional<Truck> truck = truckRepository.findById(truck_id);
+            if (driver.isEmpty()) {
+                throw new IllegalArgumentException("There is no such driver");
+            } else if (truck.get().isUtilizado()) {
+                throw new IllegalArgumentException("The Truck is current in use");
+            }
 
 
-        Trucks_Driver trucksDriver = new Trucks_Driver(driver.get(),truck.get(),LocalDate.now());
+            Trucks_Driver trucksDriver = new Trucks_Driver(driver.get(), truck.get(), LocalDate.now());
 
-         Truck_DriverDTO truck_driverDTO = new Truck_DriverDTO(driver.get().getName(),truck.get().getMatricula(),LocalDate.now());
+            Truck_DriverDTO truck_driverDTO = new Truck_DriverDTO(driver.get().getName(), truck.get().getMatricula(), LocalDate.now());
 
-         truck.get().setUtilizado(true);
+            truck.get().setUtilizado(true);
 
-         truckDriverRepository.save(trucksDriver);
+            truckDriverRepository.save(trucksDriver);
 
-        return truck_driverDTO;
+            return truck_driverDTO;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
 
     }
     @Transactional
@@ -152,11 +157,17 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
 
     @Override
     public boolean verify_Use(Long driver_id, Date filtro) throws Exception {
-        List<Trucks_Driver> trucks_driver = truckDriverRepository.findDriver(driver_id,filtro);
-        if(trucks_driver.isEmpty()){
-            throw new IllegalArgumentException("There is no such driver using a truck that day");
-        } else{
-            return true;
+        try {
+
+
+            List<Trucks_Driver> trucks_driver = truckDriverRepository.findDriver(driver_id, filtro);
+            if (trucks_driver.isEmpty()) {
+                throw new IllegalArgumentException("There is no such driver using a truck that day");
+            } else {
+                return true;
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
         }
 
     }

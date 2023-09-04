@@ -14,10 +14,10 @@ import java.util.List;
 
 public interface TruckService extends BaseService<Truck,Long>{
 
-    List<Truck> search(String filtro, double filtro2) throws Exception;
+    List<Truck> search(String filtro) throws Exception;
 
     //--------------------------PAGINACION-----------------------
-    Page<Truck> search(String filtro,double filtro2 ,Pageable pageable) throws Exception;
+    Page<Truck> search(String filtro ,Pageable pageable) throws Exception;
 
     public TruckDTO convertToDTO(Truck truck);
 

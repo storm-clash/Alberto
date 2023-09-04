@@ -35,4 +35,6 @@ public interface DriveService extends BaseService<Driver,Long>{
     public boolean terminate_Use(Long driver_id) throws Exception;
 
     public boolean verify_Use(Long driver_id, Date filtro) throws Exception;
+
+    public boolean delete (long driver_id) throws Exception;
 }

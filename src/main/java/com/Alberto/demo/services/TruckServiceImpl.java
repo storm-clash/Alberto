@@ -34,9 +34,9 @@ public class TruckServiceImpl extends BaseServiceImpl<Truck,Long> implements Tru
     }
 
     @Override
-    public List<Truck> search(String filtro, double filtro2) throws Exception {
+    public List<Truck> search(String filtro) throws Exception {
         try{
-            List<Truck> trucks = truckRepository.findByMatriculaContainingOrKilometrajeContaining(filtro,filtro2);
+            List<Truck> trucks = truckRepository.findByMatriculaContaining(filtro);
             return trucks;
 
         }catch (Exception e){
@@ -45,9 +45,9 @@ public class TruckServiceImpl extends BaseServiceImpl<Truck,Long> implements Tru
     }
 
     @Override
-    public Page<Truck> search(String filtro, double filtro2, Pageable pageable) throws Exception {
+    public Page<Truck> search(String filtro, Pageable pageable) throws Exception {
         try {
-            Page<Truck> trucks = truckRepository.findByMatriculaContainingOrKilometrajeContaining(filtro,filtro2,pageable);
+            Page<Truck> trucks = truckRepository.findByMatriculaContaining(filtro,pageable);
             return trucks;
 
         } catch (Exception e) {
@@ -98,7 +98,7 @@ public class TruckServiceImpl extends BaseServiceImpl<Truck,Long> implements Tru
     @Override
     public boolean delete(long truck_id) throws Exception {
         try{
-            Optional<Truck> truck = baseRepository.findById(truck_id);
+            Optional<Truck> truck = truckRepository.findById(truck_id);
             if(truck.isEmpty()){
                 throw new IllegalArgumentException("There is no truck with that ID");
 
@@ -106,12 +106,12 @@ public class TruckServiceImpl extends BaseServiceImpl<Truck,Long> implements Tru
 
                 throw new CantDeleteException("Cannot remove this truck, it is in use");
 
-            } else {
+            }
 
-                baseRepository.deleteById(truck_id);
+                truckRepository.deleteById(truck_id);
                 return true;
 
-            }
+
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

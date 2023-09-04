@@ -18,7 +18,7 @@ public interface BaseController<E extends Base,ID extends Serializable> {
 
     public ResponseEntity<?> getOne(@PathVariable ID id);
 
-
+    public ResponseEntity<?> delete(@PathVariable Long id);
 
 
 }

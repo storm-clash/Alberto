@@ -10,7 +10,7 @@ public interface TruckController {
     public ResponseEntity<?> getAll();
     public ResponseEntity<?> update(@PathVariable Long id,@RequestBody TruckDTO entity);
     public ResponseEntity<?> save(@RequestBody TruckDTO entity);
-    public ResponseEntity<?> delete(@PathVariable Long id);
+
 
 
 }

@@ -115,4 +115,15 @@ public class DriverController extends BaseControllerImpl<Driver, DriveServiceImp
     }
 
 
+    @Override
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(driveService.delete(id));
+
+        }catch (Exception e){
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":Error, Por favor intente mas tarde.\"}");
+        }
+    }
 }

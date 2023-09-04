@@ -6,6 +6,7 @@ import com.Alberto.demo.entities.Driver;
 import com.Alberto.demo.entities.Fuel;
 import com.Alberto.demo.entities.Truck;
 import com.Alberto.demo.entities.Trucks_Driver;
+import com.Alberto.demo.exceptions.CantDeleteException;
 import com.Alberto.demo.repository.BaseRepository;
 import com.Alberto.demo.repository.DriverRepository;
 import com.Alberto.demo.repository.TruckRepository;
@@ -141,7 +142,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
 
                 }
             }
-            throw new IllegalArgumentException("The driver has no trucks assigned at this time");
+            throw new Exception();
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
@@ -159,6 +160,25 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
         }
 
     }
+    @Transactional
+    @Override
+    public boolean delete(long driver_id) throws Exception {
+        try{
+            Optional<Driver> driver = driverRepository.findById(driver_id);
+            if(driver.isEmpty()){
+                throw new IllegalArgumentException("There is no driver with that ID");
+            }
+            this.terminate_Use(driver_id);
+
+                driverRepository.deleteById(driver_id);
+                return true;
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
     @Transactional
     public DriverDTO save(DriverDTO entity) throws Exception {
         try{

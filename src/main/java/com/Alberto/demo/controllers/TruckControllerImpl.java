@@ -56,9 +56,9 @@ public class TruckControllerImpl extends BaseControllerImpl<Truck, TruckServiceI
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> search(@RequestParam String filtro,@RequestParam Double filtro2){
+    public ResponseEntity<?> search(@RequestParam String filtro){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.search(filtro,filtro2));
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.search(filtro));
 
         }catch (Exception e){
 
@@ -67,9 +67,9 @@ public class TruckControllerImpl extends BaseControllerImpl<Truck, TruckServiceI
     }
 
     @GetMapping("/searchPaged")
-    public ResponseEntity<?> search(@RequestParam String filtro, @RequestParam Double filtro2,Pageable pageable){
+    public ResponseEntity<?> search(@RequestParam String filtro,Pageable pageable){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.search(filtro,filtro2,pageable));
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.search(filtro,pageable));
 
         }catch (Exception e){
 

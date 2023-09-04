@@ -1,6 +1,7 @@
 package com.Alberto.demo.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,7 @@ public class Truck extends Base{
 
 
     @OneToMany(mappedBy = "truck",cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.DETACH})
+    @JsonManagedReference
     private Collection<Trucks_Driver> trucksDrivers = new ArrayList<>();
 
     public Truck(String matricula, double capacidad, int ruedas, double kilometraje, Fuel type, boolean utilizado) {

@@ -1,5 +1,6 @@
 package com.Alberto.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,11 +25,13 @@ public class Trucks_Driver {
     @ManyToOne(cascade ={CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.DETACH})
     @MapsId("driverId")
     @JoinColumn(name = "driver_id")
+    @JsonBackReference
     private Driver driver;
 
     @ManyToOne(cascade ={CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.DETACH})
     @MapsId("truckId")
     @JoinColumn(name = "truck_id")
+    @JsonBackReference
     private Truck truck;
 
     private LocalDate fecha_inicio;

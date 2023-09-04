@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -47,11 +48,11 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
     }
 
     @Override
-    public List<DriverDTO> search(String filtro) throws Exception {
+    public List<Driver> search(String filtro) throws Exception {
         try{
             List<Driver> drivers = driverRepository.findByNameContainingOrLastnameContaining(filtro,filtro);
 
-            return drivers.stream().map(this::convertToDTO).collect(Collectors.toList());
+            return drivers;
 
         }catch (Exception e){
             throw new Exception(e.getMessage());

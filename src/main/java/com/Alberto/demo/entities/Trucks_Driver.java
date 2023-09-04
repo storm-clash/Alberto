@@ -51,43 +51,4 @@ public class Trucks_Driver {
         this.fecha_inicio = fecha_inicio;
     }
 
-    public Truck_Driver_Key getId() {
-        return id;
-    }
-
-    public void setId(Truck_Driver_Key id) {
-        this.id = id;
-    }
-
-    public Driver getDriver() {
-        return driver;
-    }
-
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
-
-    public Truck getTruck() {
-        return truck;
-    }
-
-    public void setTruck(Truck truck) {
-        this.truck = truck;
-    }
-
-    public LocalDate getFecha_inicio() {
-        return fecha_inicio;
-    }
-
-    public void setFecha_inicio(LocalDate fecha_inicio) {
-        this.fecha_inicio = fecha_inicio;
-    }
-
-    public LocalDate getFecha_termino() {
-        return fecha_termino;
-    }
-
-    public void setFecha_termino(LocalDate fecha_termino) {
-        this.fecha_termino = fecha_termino;
-    }
 }

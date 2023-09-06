@@ -3,6 +3,9 @@ package com.Alberto.demo.controllers;
 import com.Alberto.demo.DTOs.TruckDTO;
 import com.Alberto.demo.entities.Truck;
 import com.Alberto.demo.services.TruckServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -15,12 +18,28 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "api/v1/truck")
 @EnableTransactionManagement
+@Tag(name = "Trucks Management")
 
 public class TruckControllerImpl extends BaseControllerImpl<Truck, TruckServiceImpl> implements TruckController{
 
     @Autowired
     private TruckServiceImpl truckService;
 
+    @Operation(
+            description = "Get endpoint for trucks management",
+            summary = "",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Unauthorized / Invalid Token",
+                            responseCode = "403"
+                    )
+            }
+
+    )
     @GetMapping("")
     public ResponseEntity<?> getAll(){
         try{

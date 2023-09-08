@@ -36,23 +36,19 @@ public class DriverController extends BaseControllerImpl<Driver, DriveServiceImp
 
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody DriverDTO entity){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(driveService.save(entity));
 
-        }catch (Exception e){
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":Error, Por favor intente mas tarde.\"}");
-        }
+        return ResponseEntity
+                .accepted()
+                .body(driveService.save(entity));
     }
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id,@RequestBody DriverDTO entity){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(driveService.update(id,entity));
 
-        }catch (Exception e){
+            return ResponseEntity
+                    .accepted()
+                    .body(driveService.update(id,entity));
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":Error, Por favor intente mas tarde.\"}");
-        }
+
 
     }
 
@@ -80,13 +76,12 @@ public class DriverController extends BaseControllerImpl<Driver, DriveServiceImp
 
     @PostMapping("/assign_Driver/{driver_id}")
     public ResponseEntity<?> assign_Driver(@PathVariable Long driver_id,@RequestParam Long truck_id){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(driveService.assign(driver_id,truck_id));
 
-        }catch (Exception e){
+            return ResponseEntity
+                    .accepted()
+                    .body(driveService.assign(driver_id,truck_id));
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":Error, Por favor intente mas tarde.\"}");
-        }
+
 
     }
 

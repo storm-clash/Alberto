@@ -24,13 +24,13 @@ public interface DriveService extends BaseService<Driver,Long>{
 
     public Driver convertDTOtoEntity(DriverDTO driverDTO);
 
-    public DriverDTO update(Long id, DriverDTO entity) throws Exception;
+    public DriverDTO update(Long id, DriverDTO entity);
 
-    public DriverDTO save(DriverDTO entity) throws Exception;
+    public DriverDTO save(DriverDTO entity);
 
     public List<DriverDTO> findAll()throws Exception;
 
-    public Truck_DriverDTO assign(Long driver_id, Long truck_id)throws Exception;
+    public Truck_DriverDTO assign(Long driver_id, Long truck_id);
 
     public boolean terminate_Use(Long driver_id) throws Exception;
 

@@ -11,6 +11,7 @@ import com.Alberto.demo.repository.BaseRepository;
 import com.Alberto.demo.repository.DriverRepository;
 import com.Alberto.demo.repository.TruckRepository;
 import com.Alberto.demo.repository.Truck_DriverRepository;
+import com.Alberto.demo.validator.ObjectsValidator;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -42,6 +43,8 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
 
     @Autowired
     private Truck_DriverRepository truckDriverRepository;
+
+
 
 
     public DriveServiceImpl(BaseRepository<Driver, Long> baseRepository) {
@@ -107,9 +110,9 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
 
     @Transactional
     @Override
-    public Truck_DriverDTO assign(Long driver_id, Long truck_id) throws Exception {
+    public Truck_DriverDTO assign(Long driver_id, Long truck_id) {
 
-        try {
+
             Optional<Driver> driver = driverRepository.findById(driver_id);
             Optional<Truck> truck = truckRepository.findById(truck_id);
             if (driver.isEmpty()) {
@@ -128,9 +131,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
             truckDriverRepository.save(trucksDriver);
 
             return truck_driverDTO;
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
+
 
     }
     @Transactional
@@ -195,8 +196,9 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
     }
 
     @Transactional
-    public DriverDTO save(DriverDTO entity) throws Exception {
-        try{
+    public DriverDTO save(DriverDTO entity) {
+
+
 
             Driver driver = convertDTOtoEntity(entity);
 
@@ -209,14 +211,12 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
             Driver driverCreated = driverRepository.save(driver);
 
             return convertToDTO(driverCreated);
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
+
     }
     @Transactional
     @Override
-    public DriverDTO update(Long id, DriverDTO entity) throws Exception {
-        try{
+    public DriverDTO update(Long id, DriverDTO entity)  {
+
             //Optional<E> se emplea cuando existe la posibilidad de q no encuentre el objeto
             Optional<Driver> entityOptional = driverRepository.findById(id);
 
@@ -236,12 +236,7 @@ public class DriveServiceImpl extends BaseServiceImpl<Driver,Long> implements Dr
             }
 
             return convertToDTO(driverRepository.save(driver));
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
+
         }
-    }
-
-
-
 
 }

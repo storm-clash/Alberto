@@ -31,6 +31,10 @@ public class User extends Base implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private boolean mfaEnabled;
+
+    private String secret;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();
